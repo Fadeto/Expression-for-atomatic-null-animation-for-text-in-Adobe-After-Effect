@@ -1,0 +1,51 @@
+var t1=thisComp.layer("Control-01").marker.key("Time marker 1").time;
+var t2=thisComp.layer("Control-01").marker.key("Time marker 2").time;
+if (thisLayer.effect("On/Off Bounce")("Checkbox")==true)
+{
+try {
+
+        var freq = effect("bounce - frequency")("Slider"); //oscillations per second 
+
+        var amplitude =  effect("bounce - amplitude")("Slider"); 
+
+        var decay =  effect("bounce - decay")("Slider");
+
+    } catch(e) {
+
+        freq = 1;
+
+        amplitude = 200;
+
+        decay = 3;
+
+    }
+/*
+var n=0; //counter
+if (t1==time|t1<time)
+	{if (t2==time|t2>time)
+		n=(t2-time);
+			else n=0;
+	}
+else n=0;
+*/
+
+var n=0; //counter
+if (t2<time)
+	{n=time-t2;
+	}
+	else {n=0;}
+
+var t3=t2-n;
+var fr=t2-thisComp.frameDuration/10;
+if(n>0){
+var v= thisComp.layer("Control-01").transform.position.velocityAtTime(fr)[0];
+}else v=0;
+
+var control_1=thisComp.layer("Control-01").position;
+
+var posCos = Math.abs(Math.cos(freq*n*2*Math.PI));
+var r=control_1[0]+v*amplitude*posCos/Math.exp(decay*n);
+
+
+[r,control_1[1],control_1[2]]
+}else{value=thisComp.layer("Control-01").position;}
