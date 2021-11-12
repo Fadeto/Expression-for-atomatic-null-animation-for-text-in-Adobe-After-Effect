@@ -36,14 +36,14 @@ if (t2<time)
 	else {n=0;}
 
 var t3=t2-n;
-var fr=t2-thisComp.frameDuration/10;
+var fr=t2-thisComp.frameDuration/10; //frame with existing velocity
 if(n>0){
 var v= thisComp.layer("Control-01").transform.position.velocityAtTime(fr)[0];
 }else v=0;
 
 var control_1=thisComp.layer("Control-01").position;
 
-var posCos = Math.abs(Math.cos(freq*n*2*Math.PI));
+var posCos = Math.abs(Math.cos(freq*n*2*Math.PI)); //standart bounce expression
 var r=control_1[0]+v*amplitude*posCos/Math.exp(decay*n);
 
 
