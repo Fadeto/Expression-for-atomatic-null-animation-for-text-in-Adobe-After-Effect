@@ -1,5 +1,5 @@
-var t1=thisComp.layer("Control-01").marker.key("Time marker 1").time;
-var t2=thisComp.layer("Control-01").marker.key("Time marker 2").time;
+var t1=thisComp.layer("Transform-Control").marker.key("Time marker 1").time;
+var t2=thisComp.layer("Transform-Control").marker.key("Time marker 2").time;
 if (thisLayer.effect("On/Off Bounce")("Checkbox")==true)
 {
 try {
@@ -35,17 +35,17 @@ if (t2<time)
 	}
 	else {n=0;}
 
-var t3=t2-n;
-var fr=t2-thisComp.frameDuration/10; //frame with existing velocity
+var t3=t2-n; //inner velocity animation
+//var fr=t2-thisComp.frameDuration/10; //stop frame velocity
 if(n>0){
-var v= thisComp.layer("Control-01").transform.position.velocityAtTime(fr)[0];
+var v= thisComp.layer("Transform-Control").transform.position.velocityAtTime(t3)[0];
 }else v=0;
 
-var control_1=thisComp.layer("Control-01").position;
+var control_1=thisComp.layer("Transform-Control").position;
 
-var posCos = Math.abs(Math.cos(freq*n*2*Math.PI)); //standart bounce expression
-var r=control_1[0]+v*amplitude*posCos/Math.exp(decay*n);
+var posCos = Math.abs(Math.cos(freq*n*2*Math.PI));
+var r=control_1[0]+v/10*amplitude*posCos/Math.exp(decay*n);
 
 
 [r,control_1[1],control_1[2]]
-}else{value=thisComp.layer("Control-01").position;}
+}else{value=thisComp.layer("Transform-Control").position;}
