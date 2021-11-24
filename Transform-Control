@@ -47,3 +47,20 @@ var res3=0;
 		}
 else value;
 */
+
+//Rotation
+/*
+var t1=thisComp.layer("Transform-Control").marker.key("Time marker 1").time;
+var t2=thisComp.layer("Transform-Control").marker.key("Time marker 2").time;
+var rot=effect("Angle Control")("Angle");
+var res=0;
+if (effect("Rotation animation On/Off")("Checkbox")==true){
+	switch (true) {
+			case time<=t1: res=easeIn(time,0,t1,rot,0); break;
+			case time>t1&&time<=t2: res=ease(time,t1,t2,0,rot*2); break;
+			case time>t2: res=easeOut (time,t2,t2+1,rot*2,rot*4); break;
+						}
+	[res]}
+else {[value]}
+*/
+
