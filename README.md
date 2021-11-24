@@ -2,8 +2,8 @@
 
 Expression for automatic null animation with standart bounce for text layer in Adobe After Effect by using 2 markers for time control.
 
-"control-01" layer with 2 markers for time control and ease\lenear position animation.
+"Transform-Control" layer with 2 markers for time control and ease\lenear position animation.
 
-"control-02" layer with standart bounce expression for animation.
+"Bounce-Control" layer with standart bounce expression for animation.
 
 readme..in developing
