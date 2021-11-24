@@ -1,3 +1,5 @@
+//Position
+/*
 var t1=marker.key("Time marker 1").time;
 var t2=marker.key("Time marker 2").time;
 var offsetLR=effect("Feather mask offset")("Slider") //offset for mask feather (if used for text)
@@ -12,3 +14,36 @@ var res=easeIn(time, t1, t2, key1, key2);
 if (effect("Middle text anchor point")("Checkbox")==true)
 [res[0],res[1]-xh,res[2]];
 else [res[0],res[1],res[2]]; 
+*/
+
+//Scale
+/*
+var t1=marker.key("Time marker 1").time;
+var t2=marker.key("Time marker 2").time;
+var scale_factor=effect("scale factor")("Slider");
+var textAdr=thisComp.layer("clean title for text"); //text layer
+var lh=textAdr.sourceRectAtTime().height; //height text layer
+	
+	if (effect("Scale animation On/Off")("Checkbox")==true)
+		{
+
+var key1=textAdr.transform.scale[1]; //bottom "key" position
+var key2=textAdr.transform.scale[1]*scale_factor; //upper "key" position
+var t3=(t2+t1)/2; //middle time
+var res3=0;
+	
+	if (effect("Invert scale animation")("Checkbox")==true){
+			switch (true) {
+			case time<=t3: res=easeIn(time, t1, t3, key2, key1); break;
+			case time>t3&&time<=t2: res=easeOut(time, t3, t2, key1, key2); break;
+			case time>t2: res=linear(time, t2, t2+1, key2, 0); break;
+						}							}
+	else 	switch (true) {
+			case time<=t3: res=easeIn(time, t1, t3, key1, key2); break;
+			case time>t3&&time<=t2: res=easeOut(time, t3, t2, key2, key1); break;
+			case time>t2: res=linear(time, t2, t2+1, key1, 0); break;
+						}
+[res,res,res]	
+		}
+else value;
+*/
