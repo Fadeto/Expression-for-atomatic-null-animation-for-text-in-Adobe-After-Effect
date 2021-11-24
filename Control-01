@@ -8,7 +8,7 @@ var xw=lw/2+offsetLR;
 var xh=lh/2;
 var key1=textAdr.transform.position-xw; //left "key" position
 var key2=textAdr.transform.position+xw; //rigth "key" position
-var res=ease(time, t1, t2, key1, key2);
-if (effect("Middle text anchor point")("Checkbox")==true) //effect controls
+var res=easeIn(time, t1, t2, key1, key2);
+if (effect("Middle text anchor point")("Checkbox")==true)
 [res[0],res[1]-xh,res[2]];
 else [res[0],res[1],res[2]]; 
