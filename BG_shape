@@ -1,0 +1,56 @@
+var myShape = content("Path 1").path;
+var t1=thisComp.layer("Transform-Control").marker.key("Time marker 1").time;
+var t2=thisComp.layer("Transform-Control").marker.key("Time marker 2").time;
+//constant
+var Ss=effect("Shape size")("Slider");
+var x1=effect("X1")("Slider");
+var y1=effect("Y1")("Slider");
+var x2=effect("X2")("Slider");
+var y2=effect("Y2")("Slider");
+var x3=effect("X3")("Slider");  
+var y3=effect("Y3")("Slider");
+var x4=effect("X4")("Slider");
+var y4=effect("Y4")("Slider");
+var textAdr=thisComp.layer("clean title for text"); //text layer
+var lh=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).height; //height text layer
+var ltop=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).top;
+var ll=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).left;
+var TCp=fromWorld(thisComp.layer("Transform-Control").transform.position);
+//before t1 marker animation
+var ll_li=linear(time,t1-0.5,t1,ll,ll-Ss); 
+var ltop_li=linear(time,t1-1,t1-0.5,ltop+lh/2,ltop-Ss);
+var ldown_li=linear(time,t1-1,t1-0.5,ltop+lh/2,ltop+lh+Ss);
+var Tt=ease(time,t1,t2,0,effect("Tangent Top-Bottom")("Slider"));
+var Ts=ease(time,t1,t2,0,effect("Tangent Sides")("Slider"));
+//tangent invertion
+if (effect("Wave tangent")("Checkbox")==true)
+	{var w=-1; var rw=1;
+		if (effect("Invert wave tangent")("Checkbox")==true)
+		var rw=-1; 
+	}
+else {var w=1; var rw=1}
+//tangent animation
+if (effect("Animate tangent")("Checkbox")==true)
+		var rw=ease(time,noise(time*effect("Freq tangent animation")("Slider")),-noise(time*effect("Freq tangent animation")("Slider")));
+//
+//
+//Tangents for points
+var inT1 = [(ll-Ss+x1+TCp[0]+Ss+x4)/2,(ltop-Ss+y1+ltop-Ss+y1)/2-Tt*rw]-[ll-Ss+x1,ltop-Ss+y1];
+var inT2 = [(ll-Ss+x1+ll-Ss+x2)/2-Ts*rw,(ltop-Ss+y1+ltop+lh+Ss+y2)/2]-[ll-Ss+x2,ltop+lh+Ss+y2];
+var inT3 = [(ll-Ss+x2+TCp[0]+Ss+x3)/2,(ltop+lh+Ss+y2+ltop+lh+Ss+y3)/2+Tt*rw]-[TCp[0]+Ss+x3,ltop+lh+Ss+y3];
+var inT4 = [(TCp[0]+Ss+x4+TCp[0]+Ss+x3)/2+Ts*rw,(ltop-Ss+y1+ltop+lh+Ss+y3)/2]-[TCp[0]+Ss+x4,ltop-Ss+y1];
+var inTangents = [inT1, inT2, inT3 ,inT4];
+
+
+var outT1 = [(ll-Ss+x1+ll-Ss+x2)/2-Ts*w*rw,(ltop-Ss+y1+ltop+lh+Ss+y2)/2]-[ll-Ss+x1,ltop-Ss+y1];
+var outT2 = [(ll-Ss+x2+TCp[0]+Ss+x3)/2,(ltop+lh+Ss+y2+ltop+lh+Ss+y3)/2+Tt*w*rw]-[ll-Ss+x2,ltop+lh+Ss+y2];
+var outT3 = [(TCp[0]+Ss+x4+TCp[0]+Ss+x3)/2+Ts*w*rw,(ltop-Ss+y1+ltop+lh+Ss+y3)/2]-[TCp[0]+Ss+x3,ltop+lh+Ss+y3];
+var outT4 = [(ll-Ss+x1+TCp[0]+Ss+x4)/2,(ltop-Ss+y1+ltop-Ss+y1)/2-Tt*w*rw]-[TCp[0]+Ss+x4,ltop-Ss+y1];
+var outTangents = [outT1, outT2, outT3, outT4];
+//
+//Create points
+switch (true) {
+			case time<=t1: myShape.createPath(myShape.points=[[ll_li+x1,ltop_li+y1],[ll_li+x2,ldown_li+y2],[TCp[0]+Ss+x3,ldown_li+y3],[TCp[0]+Ss+x4,ltop_li+y4]],inTangents,outTangents); break;
+			case time>t1: myShape.createPath(myShape.points=[[ll-Ss+x1,ltop-Ss+y1],[ll-Ss+x2,ltop+lh+Ss+y2],[TCp[0]+Ss+x3,ltop+lh+Ss+y3],[TCp[0]+Ss+x4,ltop-Ss+y1]],inTangents,outTangents);break;//create points of shape; 
+			}
+		
