@@ -2,18 +2,20 @@
 /*
 var t1=marker.key("Time marker 1").time;
 var t2=marker.key("Time marker 2").time;
-var offsetLR=effect("Feather mask offset")("Slider") //offset for mask feather (if used for text)
 var textAdr=thisComp.layer("clean title for text"); //text layer
-var lw=textAdr.sourceRectAtTime().width; //width text layer
-var lh=textAdr.sourceRectAtTime().height; //height text layer
-var xw=lw/2+offsetLR; 
-var xh=lh/2;
-var key1=textAdr.transform.position-xw; //left "key" position
-var key2=textAdr.transform.position+xw; //rigth "key" position
+var lw=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).width; //width text layer
+var lh=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).height;
+var ltop=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).top;
+var ll=textAdr.sourceRectAtTime(time-textAdr.inPoint,true).left;
+var textPos=textAdr.position;
+var xw=lw/2; 
+var xh=textPos[1]+ltop+lh/2;//something strange happened
+var key1=textAdr.toWorld([0+ll,1,2]); //left "key" position
+var key2=textAdr.toWorld([0+xw,1,2]); //rigth "key" position
 var res=easeIn(time, t1, t2, key1, key2);
 if (effect("Middle text anchor point")("Checkbox")==true)
-[res[0],res[1]-xh,res[2]];
-else [res[0],res[1],res[2]]; 
+[res[0],xh,textPos[2]];
+else [res[0],res[1],textPos[2]]; 
 */
 
 //Scale
