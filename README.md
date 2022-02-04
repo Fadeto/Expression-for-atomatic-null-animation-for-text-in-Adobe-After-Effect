@@ -6,4 +6,6 @@ Expression for automatic null animation with standart bounce for text layer in A
 
 "Bounce-Control" layer with standart bounce expression for animation.
 
+"BG_shape" layer with shape animation based on expression (without keys)
+
 readme..in developing
